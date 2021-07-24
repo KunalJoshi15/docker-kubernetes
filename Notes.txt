@@ -1,0 +1,42 @@
+Docker image is the enviroment which has been created. Image is a snapshot. Everything that app requires to run.
+docker pull nginx -> this particular command is used to get nginx image to local. This brings the latest image.
+docker images-> used to get all the downloaded images.
+These images which are getting downloaded are hashed so that we don't have to download the image always.
+
+docker run -d nginx-> This runs the nginx image in the detached mode.
+docker container ls can be used to view the running image.
+
+docker run -d -p 8080:80 nginx-> This will run the nginx container in port 80 and will expose it to 8080 in os.
+We can even expose multiple ports from the current os to the container.
+Here we are passing the id of all the container as per the parameters here we are simply using the output of one command to some other command.
+docker rm $(docker ps -ap)
+
+using the --name flag we can give the name to the container that is provided to us.
+we can use the format command in order to view the information about the containers in a formatted way.
+
+In case of the docker containers the data which is stored is not persistent. In order to make this persitent we require the persistent volume.
+Here the volume is used in order to share the data among the container and the host.
+
+docker run --name website -d -v $(pwd):/usr/share/nginx/html -p 8080:80 nginx
+This command can be used for creating a particular container as per our requirement. In that particular container the volume would be mounted as per our requirement.
+While creating the volume in case of the docker containers we can create it even by using the read only flag. This means that we cannot create files in the container itself.
+
+We can build our own website and can add that to the persistent volume.
+docker run --name website --volumes-from website -d -p 8081:80 nginx
+Let us say that we have an already running container in which our current website is hosted. The volume which has been specified in that particular case can even be used over here.
+
+We can create our own docker image as per our requirement. Here we can simply specify the image.
+Images should contain all the things that we need to learn. 
+
+Here we have created a docker file with certain commands and then we will be creating our own image for the website.
+We have created the image for the github finder website and have deployed it in nginx in local environment.
+
+docker build --tag githubfinder:latest .
+This will search for the Dockerfile in the current repostory.
+
+docker build --tag user-service-api:latest .
+pulls the latest image of node.js and then simply runs the docker file.
+
+WE can even ignore the step of including the node_modules into our docker file.
+
+Here few of the files which we are including can be ignored as per our requirement.
