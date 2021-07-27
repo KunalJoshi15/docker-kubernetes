@@ -40,3 +40,19 @@ pulls the latest image of node.js and then simply runs the docker file.
 WE can even ignore the step of including the node_modules into our docker file.
 
 Here few of the files which we are including can be ignored as per our requirement.
+Now in this particular case the files which are needed during the run time can be downloaded from the internet.
+
+The layers while creating the docker images are cached therefore the next time step is very quick.
+
+We can do something better rather then adding all the files into the 
+
+All the images that we are currently using are very large in size therefore for the smaller size images we will be using the alpine images of theese.
+
+Tags and the versioning in case of the docker images is easier. If we want to upgrade the node version then while creating the docker file we will be specifying the version of the node that is required to us.
+We can decide whether we want to switch to node 8 or node 12
+8-alpine 12-alpine. These information needs to be mentioned while pulling the image as per our requirement.
+When we try using the latest tag with all our images then that overrides the information that we currently have. Therefore in order to avoid that we need to do the versioning of all the information that is present.
+
+latest will point to the latest version of the website if we want to create the versioning form the latest tag we need to use these commands.
+docker tag website:latest website:1
+// This will simply create a new image with just different tag.
