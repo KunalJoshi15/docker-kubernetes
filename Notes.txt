@@ -56,3 +56,124 @@ When we try using the latest tag with all our images then that overrides the inf
 latest will point to the latest version of the website if we want to create the versioning form the latest tag we need to use these commands.
 docker tag website:latest website:1
 // This will simply create a new image with just different tag.
+
+Here we are simply using the alpine image of the code which is present.
+Here we will be having all the informations which is required.
+
+docker tag githubfinder:latest githubfinder:v1.
+This command will link up the latest  to the github finder tag.
+
+Docker registeries. It is basically a server side application where all the images that we have created are stored.
+These docker images are required for the CI/CD pipelines.
+
+The docker registeries are mainly of two types private and public.
+From the docker hub we can create our own private repoistory and push our image there as per our need.
+
+docker push repname:website
+
+
+docker inspect container_name is for finding the information pertaining to a particular container.
+
+docker logs -f container_id or container_name fetches us the logs of the container itself.
+It is very tedious task in order to maintain the containers which are present at the different locations.
+
+
+
+Kubernetes was founded by the google it is an orchestration tool which is required to manage the docker pods that has been created.
+The kuberenetes basically provides us the high availability as per our requirement.
+
+In case of the kubernetes basic architecture there is a master node and there are many worker nodes in which the kubelet processes are running.
+Each of the worker node which is present has the applications present at them.
+The etcd in the kubernetes master node has the components which are present. Using the etcd snapshot we can restore most of the information about the containers which are running.
+In case of the production enviroment there are multiple master nodes present.
+
+We say that there are pods present inside the vm. Each of these pods have their own ip addresses and there are containers which are running inside these pods.
+We have the service which are present in the kubernetes environment in case of the service we can assign the permanent ip addresses to all the values which are present.
+External service is the service which is being exposed to the internet.
+Service has the direct url and the port opening. There is one more component which interacts with the service it is ingress. The work of ingress is that it converts the domain name and sends it to the service.
+For the database w have the internal service.
+There are few informations which are very small that we don't require a deployment for those. These information can be stored insdiet he config map of the kubernetes container. Databse username and the password may also change as per the requirement.
+
+the credentials of the db user are confidential therefore they will be stored in the form of secret.
+
+For all the external configuration we use the external pods and the config maps.
+The data which will be required for all the time are stored in the voluments. These volumes has the pods.
+
+The storage where the data will be stored can be in the local storage of the node or in the remote host.
+Storage can be seen as the external information to the kubernetes cluster. There is no persistence is 
+For the databases which are present the persistence is always the case. In case of the kubernetes cluster we are simply replicating everything that is with us. Pod is simply the layer of abstraction over the container while the deployment is the layer of abstraction above the pod.
+
+If the database pod dies we cannot simply replicated it. Therefore we simply can't create the replicas for it in particular.
+Database have the states which is the data which is present in this case.
+
+StatefulSet is used for most of the database applciation as the state of the data needs to be maintained in all the database pods which are being created.
+
+Summary of the kubernetes.
+Basic teminologies for the k8s environment will be.
+Volumes pod service ingress Deployment StatefulSet ConfigMap and Secrets most of them are necessary for the creation of the pods.
+
+
+Minikube is used in the local machine. If there are not much resources then for the simple implementation the minikube can be used.
+Minikube is the software in which the master processes and the worker processes work on the same machine.
+
+Minikube simply creates a virtual box in our local environment as per our requirement.
+kubectl is used for configuring the pods which are present inside the machine itself.
+
+There is always a master process in case of the kuberenetes environment which is responsible for communicating with the other environment which are present.
+
+We can configure brew in our local environment and then use it to install brew in the local environemnt.
+brew install hyperkit -> IT is basicaly used as the hypervisor.
+brew install minikube -> Installs both minikube and the kubectl.
+
+In order to start the minikube cluster with the single node setup we will be using this particular command.
+
+minikube start --vm-driver=hyperkit
+We will have to configure the virtualization in our machine in order to do it.
+kubectl get pods gets us the status of the minikube pod which is currently running it will be the master node.
+
+minikube is simply used to start and stop the cluster all the other things are done by the kubectl.
+check whether the minukube is running or not minikube status is used.
+
+Create and delete pods in the kubectl environment.
+
+In the kubernetes we have pods as the smallest unit but we don't directly work with the pods. Therefore we create the deployments as per our requirement.
+
+kubectl create deployment NAME --image=image [--dry-run] [options]
+Here for creating a particular deployment we need to specify the image that will be required by us.
+
+kunal@kunal-Inspiron-5559:~/hyperkit$ kubectl get pods
+NAME                     READY   STATUS              RESTARTS   AGE
+nginx-6799fc88d8-bffcw   0/1     ContainerCreating   0          4s
+kunal@kunal-Inspiron-5559:~/hyperkit$ kubectl create deployment mongo-depl --image=mongo
+deployment.apps/mongo-depl created
+kunal@kunal-Inspiron-5559:~/hyperkit$ kubectl get pods
+NAME                          READY   STATUS              RESTARTS   AGE
+mongo-depl-5fd6b7d4b4-w52lh   0/1     ContainerCreating   0          5s
+nginx-6799fc88d8-bffcw        0/1     ContainerCreating   0          22s
+
+Here we can see that the containers has been created as per our requirement.
+
+Here kubectl logs <POD NAME>-> This particular command can be used for fetching the information regarding the pods as per our requirement.
+kubectl describe <POD NAME> this command can be used for getting the information about the status of the pods which are currently being runnning.
+
+In order to get more information what happened with the deployment we can get inside the pods which are being created by the kubectl.
+kubectl exec -it <POD NAME> -- /bin/bash
+
+kubectl delete deployment <Deployment Name> this particular command is used for deleting the particular deployment as per our requirement.
+
+There are many tasks that we want to do along with the pod creation for this purpose we require to create the deployment file as per our need.
+
+kubectl apply -f config-file.yaml
+Here the changes that are being made are being made to the current deployment. Let us say that we have increase the replica count to 3 then there will be total of three replicas this will not 
+be creating 3 new replicas. Since currently there are two it will create one more replica for that deploment.
+
+PROJECT WORK HOSTING THE MONGODB AND EXPRESS APPLICAION IN THE LOCAL ENVIRONMENT
+initially we will be creating the deployment for the mongodb setup and in that deployment we will create the internal service as we want database to be accessible by the services which are inside.
+CONFIG MAP AND THE SECRETS WILL BE CREATED. 
+for the application itself we will be creating one external service so that it is accessible in the browser as well.
+
+
+The entire flow for the applcation will go like this
+The application when opened in UI will use mongoexpress external service to interact with the internal service mongodb.
+
+The username and the password which is being used is the base64 encoded as per our requirement.
