@@ -177,3 +177,15 @@ The entire flow for the applcation will go like this
 The application when opened in UI will use mongoexpress external service to interact with the internal service mongodb.
 
 The username and the password which is being used is the base64 encoded as per our requirement.
+We can connect a particular service with the pods using the selector tool here we specify the label that was used during the deployment.
+targetPort: is the port of the container or the Pod while the port is the port of which needs to be exposed.
+
+The namespaces are simply the virtual cluster inside a big cluster. These are entirely different scenario.
+Here The name of the selector in case of the mongodb will be the same as the label of the deployment we have created.
+
+kubectl get service will be used for fetching the information about the services that we have created on our own.
+Here we can describe the service and can know with which particular deployment it is associated.
+
+kubectl get all-> Can be used for getting all the possible information which is possible.
+
+inside the config map we have stored the database url which is required.
