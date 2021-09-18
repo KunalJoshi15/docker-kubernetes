@@ -189,3 +189,24 @@ Here we can describe the service and can know with which particular deployment i
 kubectl get all-> Can be used for getting all the possible information which is possible.
 
 inside the config map we have stored the database url which is required.
+here we can edit an already running pod using kubectl edit pods <pod name>
+
+We don't directly deal with the pods while we deal with containers in which the pods are contained.
+Here the replication controller is the controller that is responsible for the creation of the replica set.
+
+Replicas and the replica set are very similar in task.
+ReplicaSet is mostly used for creating the replicas.
+
+The replicaset provides the selector fields which during the pod creation can match with a preexistsing label.
+
+Necessity of the labels and selectors.
+ReplicaSet is the application which monitors the existence of the pods.
+If pods are less than the amount which was expected then replicaset itself does the deployment.
+For the creation of the pod if one goes down then we will simply have to 
+
+If we later want to scale the number of the replica set which are present we can use the following command.
+kubectl replace -f replicaset-definition.yaml
+kubectl scale --replicas=6 -f replicaset-definition.yaml
+
+While working on with the kubernetes we majorly work with the deployment which takes care of the replica set and the other stuff.
+Rolling updates are used.
