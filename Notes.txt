@@ -210,3 +210,20 @@ kubectl scale --replicas=6 -f replicaset-definition.yaml
 
 While working on with the kubernetes we majorly work with the deployment which takes care of the replica set and the other stuff.
 Rolling updates are used.
+In case of every new deployments there are rollout and the versioning are performed.
+
+kubectl set image deployment myapp-deployment <imagename> command can be used in order to change the running image of the deployment which we are using.
+kubectl rollout undo deployment/myapp-deployment
+
+Kubernetes:
+In case of the kuberenetes environment each of the pods get their own IP address.
+Kubernetes whave the ips  which is required for linking the kubernetes nodes. Pod when created gets an ip address while the creation of the pod the kubernetes container will get a network ip address here all the private ips are inside this particular network.
+Kubernetes suggests us to setup the networking for the kubernetes cluster that we currently have.
+
+The kubernetes pods that we have created are in a different network therefore we need services in order to acccess those nodes as per our requirement.
+1) NodePort:- we will map a port on the node to the port which is in the pod.
+The targetPort is the port where the service redirects our requests to.
+
+For balancing the load among all the pods which are present it uses the random algorithm.
+Service only needs to be configured once if the service has been configured well then there should not be any extra confiuration for the service.
+In case of the cluster ip configuration we will be simply having a cluster ip mentioned as per our requirement.

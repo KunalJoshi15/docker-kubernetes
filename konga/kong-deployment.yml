@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kong-ui
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: kong-ui
+      labels:
+        app: kong-frontend
+    spec:
+      containers:
+      -  name: konga
+         image: pantsel/konga
+  selector:
+    matchLabels:
+      app: kong-frontend

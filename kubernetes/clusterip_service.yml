@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  type: ClusterIP
+  ports:
+  - targetPort: 80
+    port: 80
+  selector:
+    app: myapp
+    type: backend
+
+#Here we have specified the targetPort which is the port of the node where service is actually running and port 80 is the way to access that particular service.
