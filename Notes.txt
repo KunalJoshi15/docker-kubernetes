@@ -227,3 +227,16 @@ The targetPort is the port where the service redirects our requests to.
 For balancing the load among all the pods which are present it uses the random algorithm.
 Service only needs to be configured once if the service has been configured well then there should not be any extra confiuration for the service.
 In case of the cluster ip configuration we will be simply having a cluster ip mentioned as per our requirement.
+
+Example voting app in kubernetes.
+Goals for developing the application are as follows.
+1) Deploy containers
+2) Enable Connectivity within the containers.
+
+Steps that needs to be followed for the application creation are as follos:
+1) Deploy PODS
+2) create services (ClusetIP)
+. redist and the voting app.
+service by postgres is created.
+
+We will be creating the services for the voting app and the result-app as they are to be accessed by the end users.
