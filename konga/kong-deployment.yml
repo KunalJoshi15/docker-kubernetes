@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: konga
   name: kong-ui
   labels:
     app: frontend
@@ -15,6 +16,8 @@ spec:
       containers:
       -  name: konga
          image: pantsel/konga
+         ports:
+          - containerPort: 1337
   selector:
     matchLabels:
       app: kong-frontend

@@ -240,3 +240,56 @@ Steps that needs to be followed for the application creation are as follos:
 service by postgres is created.
 
 We will be creating the services for the voting app and the result-app as they are to be accessed by the end users.
+
+CKAD course for the kubernetes certification.
+Controller are the brain of the kubernetes which means that all the information are maintained using the kubernetes containers only.
+
+Replication controller makes sure that the specified number of pods are running at all the times as mentioned.
+Replication container is also required to share the load among all the pods which are present.
+
+All the operations whichh we have performed lately are performed using the namespace only the operations which were currently being done were inside the default namespace.
+networks are inside the kubesystem
+kube-public are all the public resources.
+
+We can define the quota limit for the namespaces as per our requirement.
+By default the image that we have created does not have the bash associated with it as per our requirement.
+
+docker run ubuntu [COMMAND]
+this basically runs the docker container with the ubuntu image in it and inside that particular image it runs the sleep command as per our requirement.
+CMD command param1
+
+Entrypoint can be specified in the docker file in which me can specify the params inside the console itself.
+FROM Ubuntu 
+ENTRYPOINT ["sleep"]
+CMD ["5"]
+This value 5 will be acting as the parameter as per our own requirement.
+
+docker run ubuntu-sleeper 5
+Here if we want to create a secret then we will simply using this particular command.
+kubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-literal=DB_User=root --from-literal=DB_Password=password123
+// This will create the generic secrets.
+
+docker run --user=1000 ubuntu sleep 3600
+this will run the sleep command with user as 1000.
+
+docker run --cap-add 
+docker run --privileged
+
+Settings that we will do on a container will override the settings that has been done in the pod.
+we can prevent the automounting of the service account as per our requirement.
+autoMountServiceAccount: false -> THis needs to be set to false for the pods.
+
+In case of te pods which are being created by the deployments we can specify the max CPU it can use and the max memory.
+If the memory exceeds then the pod will be restarted.
+OOMKilled status is being used when the pod runs out of the memory that is required by it.
+
+Taints and toleration:
+THis concept is used if we want to put certain pods at certain nodes as per our requirement.
+we apply the taints to the nodes so that no pods are gone to that node then we apply toleration to containers so that they can be scheduled on that node.
+Initially if some taint is applied to a node then none of the pods are tolerant to that taint. we need to specify the toleration in the pods for the specific taints as per our requirement.
+
+kubectl taint nodes node-name key=value:taint-effect
+there are three types of taint-effect
+NoSchedule:- no pods with specific toleration will be scheduled.
+PreferNoSchedule:- pod can be scheduled
+NoExecute:- previous nodes which do not tolerate the taint are evicted.
