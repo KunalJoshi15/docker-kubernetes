@@ -293,3 +293,10 @@ there are three types of taint-effect
 NoSchedule:- no pods with specific toleration will be scheduled.
 PreferNoSchedule:- pod can be scheduled
 NoExecute:- previous nodes which do not tolerate the taint are evicted.
+
+kubectl taint nodes controlplane node-role.kubernetes.io/master:NoSchedule-
+command is used to remove the taint.
+
+Readiness and the liveness probe is used a lot in the kubernetes
+using the kubectl get pods command we can get all the pods which are currently running. 
+Liveness probe is used to make sure that the application is inside the container is running without any errors.
