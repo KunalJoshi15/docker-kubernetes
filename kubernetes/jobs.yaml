@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+        name: throw-dice-job
+spec:
+        parallelism: 3
+        completions: 3 #this means that the job needs to be successful three times from the time it is being run. in order to terminate.
+        backoffLimit: 15 #this is to maintain that the job does not quit until it is successful
+        template:
+                spec:
+                        containers:
+                                - name: throw-dice
+                                  image: kodekloud/throw-dice
+                        restartPolicy: Never

@@ -300,3 +300,24 @@ command is used to remove the taint.
 Readiness and the liveness probe is used a lot in the kubernetes
 using the kubectl get pods command we can get all the pods which are currently running. 
 Liveness probe is used to make sure that the application is inside the container is running without any errors.
+
+In order to check the logs of the pods which have been recently created we use the command as 
+kubectl logs -f <pod name> this command is similar to the command that we use in case of docker.
+
+If there are multiple containers present inside the pod then we will have to specify the exact name of the container for which we need to view the logs
+kubectl logs -f event-simulator-pod event-simulator
+
+Metric server is  used to fetch data from the different kubernetes nodes and then pods aggregate them and stores then into the memory.
+kubelet is used for fetching the information.
+
+The strategy that is used a lot in case of deployments in kubernetes environment is the rolling update strategy in this particular strategy one new pod is brought up and then one old pod is removed.
+
+kubectl set image deploment/myapp-deployment nginx-container=nginx:1.12
+This particular command with upgrade the version of nginx as per our requirement.
+
+kubectl rollout status deployment/nginx
+
+kubectl rollout undo deployment/myapp-deployment
+
+basically the main use of the jobs that we have created is that they perform a certain task and after completing that particular task a few number of times the jobs are deleted.
+But pods are maintained.
