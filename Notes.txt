@@ -321,3 +321,21 @@ kubectl rollout undo deployment/myapp-deployment
 
 basically the main use of the jobs that we have created is that they perform a certain task and after completing that particular task a few number of times the jobs are deleted.
 But pods are maintained.
+
+There are mainly three types of services which are used. The first type of service is 
+1) NodePort
+2) ClusterIP
+3) ingress
+
+In case of the node port the application needs to be viewed in the ui as per our requirement therefore we will have to specify a node port 
+for a service which will redirect the traffic to port where the service is running which in place will redirect the traffic to pod itself 
+and hence we will be able to access the application as per our requirement,
+
+ClusterIP scenario is used when we have many services which are running in a particular namespace and these services in particular interacts with each other as per our requirement.
+
+In case of the ingress we can perform the ssl security as per our requriement and we can define a hostname as well as per our requirement as remembering the hostname is easier than remembering IP address.
+
+in order to use the ingress functionality we will have to deploy the ingress controller as per our need.
+kubectl get ingress --all-namespace
+
+kubectl describe ingress ingress-wear-watch -n app-space
