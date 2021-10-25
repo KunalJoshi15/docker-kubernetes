@@ -339,3 +339,10 @@ in order to use the ingress functionality we will have to deploy the ingress con
 kubectl get ingress --all-namespace
 
 kubectl describe ingress ingress-wear-watch -n app-space
+
+For creating a particular ingress controller firstly we need to deploy the pod of the ingress controller and then expose it using the service file.
+Command which will be used.
+kubectl create cm nginx-configuration -n ingress-space
+this will create a configmap.
+
+kubectl get networkpolicy
