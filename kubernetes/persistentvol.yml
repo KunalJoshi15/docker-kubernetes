@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-voll
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /tmp/data
+# here we can specify the amount of storage that is there in the persistent volume.
+# from this pv the nodes will claim pvc.
+
+# other access modes are. ReadOnlyMany, ReadWriteOnce and ReactWriteMany.

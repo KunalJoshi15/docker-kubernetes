@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+# there are persistent volumes are created then these volumes are claimed.
+# labels and selector can be used for binding to a specific volume as per our requirement.
+metadata:
+  name: myclaim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      sorage: 500Mi
+
+# when pv requested by pvc is not available then simply it gets associated with any pv.
+# kubectl delete persistentvolume myclaim
+# persistentVolumeReclaimPolicy: retain-> Will be available even when pvc deleted.
