@@ -346,3 +346,6 @@ kubectl create cm nginx-configuration -n ingress-space
 this will create a configmap.
 
 kubectl get networkpolicy
+
+If we want to permanently store the data into the host then we will have to create a volume.
+Persistent volume claim cannot be delete if it is currently being used by a pod.
