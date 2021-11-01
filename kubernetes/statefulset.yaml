@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: mysql
+  serviceName: mysql-h
+  podManagementPolicy: Parallel
+# here we have specified the service which is currently being used with the statefulset.
+# headless services are used like there are master and slave db we need read operations to be done from the slavedb while the write operations needs to be done from 
+# master database.

@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-h
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: mysql
+---
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql
+spec:
+  replicas: 3
+  matchLabels:
+    app: mysql
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+      subdomain: mysql-h
+      hostname: mysql-pod
+# in this case the domain name of all the pods which are part of a particular deployment are same.
+---
+# StatefulSet handles all these things on its own. therefore we don't have to do anything on that regard.
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql
+spec:
+  serviceName: mysql-h
+  replicas: 3
+  matchLabels:
+    app: mysql
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql

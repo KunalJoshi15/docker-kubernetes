@@ -349,3 +349,7 @@ kubectl get networkpolicy
 
 If we want to permanently store the data into the host then we will have to create a volume.
 Persistent volume claim cannot be delete if it is currently being used by a pod.
+
+The main need of statefulset is that the name of the pods changes after a certain time.
+
+Similar commands can be used in case of the stateful sets as well.
