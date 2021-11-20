@@ -353,3 +353,97 @@ Persistent volume claim cannot be delete if it is currently being used by a pod.
 The main need of statefulset is that the name of the pods changes after a certain time.
 
 Similar commands can be used in case of the stateful sets as well.
+Dockerfile is some set of instructions that we provide to happen one after other. this is used for creating our own image.
+
+Secure hosts->
+Password based authentication disabled
+SSH key based authentication.
+
+The first line of defence is controlling access to the api server itself.
+Authorization is done by introducing rule based access controls.
+
+There are admins and developers and then there are end users.
+Securing access to the kubernetes cluster using the authentication and authorization mechanisms.
+
+All the users accesses are managed by api-server.
+curl https://kube-server:9131
+
+the username and password can be on the static password file or they can be in a static token file.
+Certificates can also be used for authentication to the kubeapi server.
+user-details are being passed in user-details.csv file.
+
+by changing the kubeapiserver file.
+username and password are passed into the curl request then.
+
+curl https://my-kube-playground:6443/api/v1/pods \
+--key admin.key
+--cert admin.crt
+--cacert ca.crt
+
+We can create a kubeconfig file as per our requirement.
+
+we don't have to specify the configuration.
+Contexts Admin@rproduction.
+mykubeadmin user to acccessm mykubeplayground user.
+Kubeconfig file is used for specifying the information regarding the pods.
+we can define users which can view pods and the other things as well as specified.
+
+If the authorization is set to AlwaysAllow then all the things are always allowed.
+RBAC checks the rules and then actually try to authorizing the person.
+
+RBAC:
+In case of RBAC we can define the roles.
+kubectl describe pod kube-apiserver-controlplane -n kube-system | grep authorization
+// this helps us in fetching the information regarding the rule based access control.
+
+kubectl get pods --as dev-user
+this particular command can be used for running it as the user as we want to.
+
+To create a Role:- kubectl create role developer --namespace=default --verb=list,create,delete --resource=pods
+To create a RoleBinding:- kubectl create rolebinding dev-user-binding --namespace=default --role=developer --user=dev-user
+OR
+
+the alpha1 version of api means that the  api has been created before and then it is merged with the kubernetes code.
+The apiGroups which are in beta stage and enabled by default.
+after these it moves to stable GA.
+a group may have different groups.
+
+To enable a particular API group we need to confugure it to the startup of apiserver.
+then restart the apiserver services.
+
+API DEPRICATION POLICY:
+API objects must be able to round-trip between API versions in a given release without information loss,
+with the exception of while REST resources that do not exist in some versions.
+v1alpha1 v1beta1 v1beta2 then v1.
+this is particular api is developed.
+
+There should be a deprication policy in order to remove the older versions.
+If a new alpha release is introduced then the older versions are removed one after the other.
+
+In case of beta version this is deprecated after 3 months.
+we change the preferred version.
+
+kubectl convert *.yaml --output-version apps/v1
+this will change the version
+The kubectl convert needs to be installed.
+
+cp -v /etc/kubernetes/manifests/kube-apiserver.yaml /root/kube-apiserver.yaml.backup
+// this is used for making the backup of the apiserver.
+
+
+Run the command kubectl-convert to change the deprecated API version as follows :-
+
+root@controlplane:~# kubectl-convert -f ingress-old.yaml --output-version networking.k8s.io/v1
+
+# store new changes into a file 
+root@controlplane:~# kubectl-convert -f ingress-old.yaml --output-version networking.k8s.io/v1 > ingress-new.yaml
+
+After changing the API version and storing into a file, use the kubectl create -f command to deploy the resource :-
+
+root@controlplane:~# kubectl create -f ingress-new.yaml
+
+Inspect the apiVersion as follows :-
+
+root@controlplane:~# kubectl get ing ingress-space -oyaml | grep apiVersion
+
+Note: Maybe you will not see the service and other resources mentioned in the ingress YAML on the controlplane node because we have to only deploy the ingress resource with the latest API version.
