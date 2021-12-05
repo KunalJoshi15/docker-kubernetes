@@ -447,3 +447,12 @@ Inspect the apiVersion as follows :-
 root@controlplane:~# kubectl get ing ingress-space -oyaml | grep apiVersion
 
 Note: Maybe you will not see the service and other resources mentioned in the ingress YAML on the controlplane node because we have to only deploy the ingress resource with the latest API version.
+There are two types of the deployment strategies which are used majorly. Those two approaches are.
+1) Blue Green strategy
+... there is one more similar reployment created with the same number of replicas but a different label.
+Then we will directly try to switch traffic to new deployment.
+
+in case of canary approach the traffic is shifted one after the other not all at once.
+
+Helm is basically used in order to make the creation of the  deploments easier for us as per our own requirement.
+helm install wordpress -> This is run all the kubernetes space.
